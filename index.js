@@ -38,6 +38,19 @@ async function run() {
         })
 
 
+        app.get('/visarena/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await visaCollection.findOne(query);
+            res.send(result);
+        })
+
+        // app.put('/visarena/:id', async (req, res) => {
+        //     const id = req.params.id;
+        //     const filter = 
+        // })
+
+
         app.post('/visarena', async (req, res) => {
             const newVisa = req.body;
             console.log(newVisa);
