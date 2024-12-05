@@ -45,10 +45,24 @@ async function run() {
             res.send(result);
         })
 
-        // app.put('/visarena/:id', async (req, res) => {
-        //     const id = req.params.id;
-        //     const filter = 
-        // })
+        app.put('/visarena/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: new ObjectId(id) };
+            const updatedVisa = {
+                $set: {
+                    countryName: req.body.countryName,
+                    visaType: req.body.visaType,
+                    processingTime: req.body.processingTime,
+                    fee: req.body.fee,
+                    validity: req.body.validity,
+                    applicationMethod: req.body.applicationMethod,
+                },
+            };
+
+            const result = await visaCollection.updateOne(filter, updatedVisa, { upsert: false });
+            res.send(result);
+        });
+
 
 
         app.post('/visarena', async (req, res) => {
