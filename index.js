@@ -102,6 +102,23 @@ async function run() {
         })
 
 
+        app.get('/appliedvisas/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await appliedVisasCollection.findOne(query);
+            res.send(result);
+        })
+
+
+
+        app.delete('/appliedvisas/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await appliedVisasCollection.deleteOne(query);
+            res.send(result);
+        })
+
+
 
 
 
