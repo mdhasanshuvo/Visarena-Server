@@ -85,7 +85,23 @@ async function run() {
 
 
 
-        
+        app.get('/latest-visas', async (req, res) => {
+            const latestVisas = await visaCollection
+                .find()
+                .sort({ _id: -1 })
+                .limit(6)
+                .toArray();
+
+            res.send(latestVisas);
+
+        });
+
+
+
+
+
+
+
 
 
         app.post('/appliedvisas', async (req, res) => {
