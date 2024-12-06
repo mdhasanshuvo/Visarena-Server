@@ -95,6 +95,11 @@ async function run() {
         })
 
 
+        app.get('/appliedvisas', async (req, res) => {
+            const cursor = appliedVisasCollection.find();
+            const result = await cursor.toArray();
+            res.send(result);
+        })
 
 
 
