@@ -1,6 +1,6 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express();
 const port = process.env.PORT || 5000;
@@ -30,6 +30,8 @@ async function run() {
 
         const visaCollection = client.db('visaDB').collection('visa');
 
+        const appliedVisasCollection = client.db('visaDB').collection('appliedVisas');
+
 
         app.get('/visarena', async (req, res) => {
             const cursor = visaCollection.find();
@@ -44,6 +46,7 @@ async function run() {
             const result = await visaCollection.findOne(query);
             res.send(result);
         })
+
 
         app.put('/visarena/:id', async (req, res) => {
             const id = req.params.id;
@@ -67,10 +70,10 @@ async function run() {
 
         app.post('/visarena', async (req, res) => {
             const newVisa = req.body;
-            console.log(newVisa);
             const result = await visaCollection.insertOne(newVisa);
             res.send(result);
         })
+
 
 
         app.delete('/visarena/:id', async (req, res) => {
@@ -79,6 +82,22 @@ async function run() {
             const result = await visaCollection.deleteOne(query);
             res.send(result);
         })
+
+
+
+        
+
+
+        app.post('/appliedvisas', async (req, res) => {
+            const newAppliedVisa = req.body;
+            const result = await appliedVisasCollection.insertOne(newAppliedVisa);
+            res.send(result);
+        })
+
+
+
+
+
 
 
 
